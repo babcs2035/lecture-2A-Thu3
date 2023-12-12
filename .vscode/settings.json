@@ -1,6 +1,10 @@
 {
   "files.associations": {
     "gol.h": "c",
-    "limits": "c"
+    "limits": "c",
+    "typeinfo": "c",
+    "my_gravity1.h": "c",
+    "my_gravity3.h": "c",
+    "time.h": "c"
   }
 }
