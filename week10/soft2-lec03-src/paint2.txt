@@ -1,0 +1,5 @@
+line 10 10 20 20
+chpen #
+line 5 15 20 5
+chpen +
+circle 15 15 5
