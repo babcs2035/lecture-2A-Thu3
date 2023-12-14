@@ -32,21 +32,73 @@ void my_init_cells(const int height, const int width, int cell[height][width], F
     {
         const int buf_size = 100;
         char buf[buf_size];
-        while (fgets(buf, buf_size, fp) != EOF)
+        int is_rle = 0, ox = 0, oy = 0, sx = 0, sy = 0;
+        while (fgets(buf, buf_size, fp) != NULL)
         {
             if (buf[0] == '#')
             {
                 continue;
             }
-            if (buf[0] == 'x')
+            else if (buf[0] == 'x')
             {
+                int x, y;
+                sscanf(buf, "x = %d, y = %d", &x, &y);
+                ox = width / 2 - x / 2;
+                oy = height / 2 - y / 2;
+                sx = ox;
+                sy = oy;
+                is_rle = 1;
             }
-        }
-        int x, y;
-        fgets(buf, 100, fp);
-        while (fscanf(fp, "%d%d", &x, &y) != EOF)
-        {
-            cell[y][x] = 1;
+            else if (is_rle)
+            {
+                int seek = 0;
+                while (seek < buf_size && buf[seek] != '\n' && buf[seek] != '\0')
+                {
+                    if ('0' <= buf[seek] && buf[seek] <= '9')
+                    {
+                        int num = 0;
+                        while ('0' <= buf[seek] && buf[seek] <= '9')
+                        {
+                            num = num * 10 + buf[seek] - '0';
+                            ++seek;
+                        }
+                        for (int c = 0; c < num; c++)
+                        {
+                            if (buf[seek] == 'b')
+                            {
+                                cell[sy][sx] = 0;
+                            }
+                            else if (buf[seek] == 'o')
+                            {
+                                cell[sy][sx] = 1;
+                            }
+                            ++sx;
+                        }
+                    }
+                    else if (buf[seek] == '$')
+                    {
+                        ++sy;
+                        sx = ox;
+                    }
+                    else if (buf[seek] == 'b')
+                    {
+                        cell[sy][sx] = 0;
+                        ++sx;
+                    }
+                    else if (buf[seek] == 'o')
+                    {
+                        cell[sy][sx] = 1;
+                        ++sx;
+                    }
+                    seek++;
+                }
+            }
+            else
+            {
+                int x, y;
+                sscanf(buf, "%d%d", &x, &y);
+                cell[y][x] = 1;
+            }
         }
     }
 }
