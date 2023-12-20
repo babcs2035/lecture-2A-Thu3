@@ -203,16 +203,16 @@ int main(int argc, char **argv)
     }
 
     my_print_cells(fp, 0, height, width, cell); // 表示する
-    sleep(1);                                   // 1秒休止
-    fprintf(fp, "\e[%dA", height + 3);          // height+3 の分、カーソルを上に戻す(壁2、表示部1)
+    // sleep(1);                                   // 1秒休止
+    fprintf(fp, "\e[%dA", height + 3); // height+3 の分、カーソルを上に戻す(壁2、表示部1)
 
     /* 世代を進める*/
     for (int gen = 1;; gen++)
     {
         my_update_cells(height, width, cell);         // セルを更新
         my_print_cells(fp, gen, height, width, cell); // 表示する
-        sleep(1);                                     // 1秒休止する
-        fprintf(fp, "\e[%dA", height + 3);            // height+3 の分、カーソルを上に戻す(壁2、表示部1)
+        // sleep(1);                                     // 1秒休止する
+        fprintf(fp, "\e[%dA", height + 3); // height+3 の分、カーソルを上に戻す(壁2、表示部1)
 
         if (gen % 100 == 0 && gen < 10000)
         {
