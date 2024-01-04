@@ -5,6 +5,12 @@
     "typeinfo": "c",
     "my_gravity1.h": "c",
     "my_gravity3.h": "c",
-    "time.h": "c"
+    "time.h": "c",
+    "stdlib.h": "c",
+    "stdio.h": "c",
+    "errno.h": "c",
+    "string.h": "c",
+    "vector.h": "c",
+    "matrix.h": "c"
   }
 }
