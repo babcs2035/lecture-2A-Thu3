@@ -11,6 +11,9 @@
     "errno.h": "c",
     "string.h": "c",
     "vector.h": "c",
-    "matrix.h": "c"
+    "matrix.h": "c",
+    "ctype.h": "c",
+    "canvas.h": "c",
+    "display.h": "c"
   }
 }
