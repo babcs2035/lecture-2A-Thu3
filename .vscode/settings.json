@@ -14,6 +14,12 @@
     "matrix.h": "c",
     "ctype.h": "c",
     "canvas.h": "c",
-    "display.h": "c"
+    "display.h": "c",
+    "system_error": "c",
+    "array": "c",
+    "functional": "c",
+    "tuple": "c",
+    "type_traits": "c",
+    "utility": "c"
   }
 }
