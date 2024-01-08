@@ -23,7 +23,7 @@ void solve(char *str)
 
   for (int i = 0; i < 4; ++i)
   {
-    printf("%f\n", f[i]);
+    printf("%a\n", f[i]);
   }
   printf("%s", (char *)f);
 }
