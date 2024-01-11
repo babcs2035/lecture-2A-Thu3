@@ -21,6 +21,8 @@
     "tuple": "c",
     "type_traits": "c",
     "utility": "c",
-    "solve.h": "c"
+    "solve.h": "c",
+    "limits.h": "c",
+    "encode.h": "c"
   }
 }
