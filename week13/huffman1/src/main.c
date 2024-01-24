@@ -1,22 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "LZSS.h"
-#include "encode.h"
+#include "huffman.h"
 
 int main(int argc, char **argv)
 {
     if (argc != 2)
     {
-        fprintf(stderr, "usage: %s <src filename>\n", argv[0]);
+        fprintf(stderr, "usage: %s <src filename (without extension)>\n", argv[0]);
         exit(1);
     }
 
-    LZ77_Node *root = compress(argv[1]);
-    const char *str = extract(root);
+    char *filename = (char *)malloc(sizeof(char) * MAX_TEXT_LENGTH);
+    strcpy(filename, argv[1]);
+    sprintf(filename, "%s.txt", argv[1]);
+    LZSS_Node *LZSS_root = compress(filename);
 
-    // Node *root = encode(argv[1]);
-    // traverse_tree(0, root, "");
-    // write_code(argv[1], argv[2]);
+    huffman_Node *huffman_root = encode(LZSS_root);
+    traverse_tree(0, huffman_root, "");
+
+    sprintf(filename, "%s_compressed.dat", argv[1]);
+    write_code(LZSS_root, filename);
+
+    // LZSS_root = read_code(filename, huffman_root);
+    // const char *str = extract(LZSS_root);
+    // printf("%s\n", str);
 
     return EXIT_SUCCESS;
 }

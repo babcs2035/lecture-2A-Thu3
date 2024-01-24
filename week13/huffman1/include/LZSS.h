@@ -1,14 +1,16 @@
 #pragma once
 #define MAX_TEXT_LENGTH 140000
-#define SLIDING_WINDOW_SIZE 16
+#define SLIDING_WINDOW_SIZE 258
 
-typedef struct LZ77_node LZ77_Node;
-struct LZ77_node
+typedef struct LZSS_node LZSS_Node;
+struct LZSS_node
 {
   int flag, dat1, dat2;
-  LZ77_Node *next;
+  LZSS_Node *next;
 };
 
-LZ77_Node *compress(const char *filename);
+LZSS_Node *create_LZSS_node(int flag, int dat1, int dat2, LZSS_Node *last_node);
 
-char *extract(LZ77_Node *head);
+LZSS_Node *compress(const char *filename);
+
+char *extract(LZSS_Node *head);

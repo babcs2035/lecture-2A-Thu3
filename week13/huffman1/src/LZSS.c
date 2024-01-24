@@ -4,9 +4,9 @@
 #include "LZSS.h"
 #include "utilities.h"
 
-LZ77_Node *create_node(int flag, int dat1, int dat2, LZ77_Node *last_node)
+LZSS_Node *create_LZSS_node(int flag, int dat1, int dat2, LZSS_Node *last_node)
 {
-  LZ77_Node *node = (LZ77_Node *)malloc(sizeof(LZ77_Node));
+  LZSS_Node *node = (LZSS_Node *)malloc(sizeof(LZSS_Node));
   node->flag = flag;
   node->dat1 = dat1;
   node->dat2 = dat2;
@@ -18,7 +18,7 @@ LZ77_Node *create_node(int flag, int dat1, int dat2, LZ77_Node *last_node)
   return node;
 }
 
-LZ77_Node *compress(const char *filename)
+LZSS_Node *compress(const char *filename)
 {
   FILE *fp = fopen(filename, "r");
   if (fp == NULL)
@@ -30,11 +30,12 @@ LZ77_Node *compress(const char *filename)
   fread(str, sizeof(char), MAX_TEXT_LENGTH, fp);
   fclose(fp);
 
-  LZ77_Node *first_node = NULL;
-  LZ77_Node *last_node = NULL;
+  LZSS_Node *first_node = NULL;
+  LZSS_Node *last_node = NULL;
 
   // todo: repeat
   int i = 0;
+  printf("LZSS:\t\t");
   while (str[i] != '\0')
   {
     int max_length = -1, offset = -1;
@@ -54,20 +55,17 @@ LZ77_Node *compress(const char *filename)
         }
       }
     }
-    if (first_node != NULL)
-    {
-      printf(" -> ");
-    }
+
     if (max_length <= 0)
     {
-      last_node = create_node(0, str[i], -1, last_node);
-      printf("(0, %d)", str[i]);
+      last_node = create_LZSS_node(0, str[i], -1, last_node);
+      printf("(0, %d) ", str[i]);
       ++i;
     }
     else
     {
-      last_node = create_node(1, offset, max_length, last_node);
-      printf("(1, %d, %d)", offset, max_length);
+      last_node = create_LZSS_node(1, offset, max_length, last_node);
+      printf("(1, %d, %d) ", offset, max_length);
       i += max_length;
     }
     if (first_node == NULL)
@@ -79,7 +77,7 @@ LZ77_Node *compress(const char *filename)
   return first_node;
 }
 
-char *extract(LZ77_Node *head)
+char *extract(LZSS_Node *head)
 {
   char *str = (char *)malloc(sizeof(char) * MAX_TEXT_LENGTH);
   int i = 0;

@@ -23,6 +23,7 @@
     "utility": "c",
     "solve.h": "c",
     "limits.h": "c",
-    "encode.h": "c"
+    "encode.h": "c",
+    "utilities.h": "c"
   }
 }
